@@ -10,11 +10,20 @@ public class Pool
     private int poolSize;
     private bool initialState;
     private Transform parent;
+    private Vector3? startPosition;
+    private string pooledObjectName;
 
     //Runtime variables
     private int poolIndex = 0;
 
-    public Pool(GameObject mainObject, int poolSize=20, bool initialState=false, Transform parent=null)
+    public Pool(
+        GameObject mainObject, 
+        int poolSize=20, 
+        bool initialState=false, 
+        Transform parent=null, 
+        Vector3? startPosition=null,
+        string pooledObjectName="Pooled object"
+    )
     {
         //Set object to pool
         this.mainObject = mainObject;
@@ -23,6 +32,8 @@ public class Pool
         this.poolSize = poolSize;
         this.initialState = initialState;
         this.parent = parent;
+        this.startPosition = startPosition;
+        this.pooledObjectName = pooledObjectName;
 
         //Generate pool
         this.pool = generatePool();
@@ -35,8 +46,14 @@ public class Pool
 
         for (int i = 0; i < poolSize; i++)
         {
-            newObject = GameObject.Instantiate(mainObject, Vector3.zero, Quaternion.identity, parent);
-            newObject.name = "Pooled object " + i.ToString();
+            newObject = GameObject.Instantiate(
+                mainObject,
+                startPosition != null ? (Vector3)startPosition : Vector3.zero,
+                Quaternion.identity,
+                parent
+            );
+
+            newObject.name = pooledObjectName + " " + (i+1).ToString();
             newObject.SetActive(this.initialState);
             newPool.Add(newObject);
         }
@@ -52,7 +69,7 @@ public class Pool
         for (int i = poolSize; i < newSize; i++)
         {
             newObject = GameObject.Instantiate(mainObject, Vector3.zero, Quaternion.identity, parent);
-            newObject.name = "Pooled object " + i.ToString();
+            newObject.name = pooledObjectName + " " + (i+1).ToString();
             newObject.SetActive(initialState);
             pool.Add(newObject);
         }
@@ -64,7 +81,7 @@ public class Pool
 
     public GameObject spawnAt(Vector3 pos, bool newState = true)
     {
-        if(poolIndex >= poolSize)
+        if(poolIndex == poolSize-1)
         {
             poolIndex = 0;
         }
@@ -94,32 +111,32 @@ public class Pool
 
     public GameObject nextObject(int step=1)
     {
-        int pos = poolIndex;
+        int index = poolIndex;
 
         for (int i = 0; i < step; i++)
         {
-            poolIndex++;
+            index++;
 
-            if(poolIndex >= poolSize)
+            if(index >= poolSize)
             {
-                poolIndex = 0;
+                index = 0;
             }
         }
 
-        return pool[poolIndex];
+        return pool[index];
     }
 
-    public GameObject previousObject(int step = 1)
+    public GameObject previousObject(int step=1)
     {
-        int pos = poolIndex;
+        int index = poolIndex;
 
         for (int i = 0; i < step; i++)
         {
-            poolIndex--;
+            index--;
 
-            if (poolIndex == poolSize)
+            if (index == poolSize-1)
             {
-                poolIndex = poolSize;
+                index = poolSize;
             }
         }
 
@@ -165,5 +182,4 @@ public class Pool
     {
         pool[pool.IndexOf(obj)].SetActive(true);
     }
-
 }

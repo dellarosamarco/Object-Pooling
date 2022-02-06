@@ -8,7 +8,14 @@ public class Example : MonoBehaviour
 
     private void Start()
     {
-        pool = new Pool(mainObject : sphere, poolSize : 20, initialState : false, parent : objectsContainer);
+        pool = new Pool(
+            mainObject : sphere, 
+            poolSize : 500, 
+            initialState : false, 
+            parent : objectsContainer,
+            startPosition : randomPos(),
+            pooledObjectName : "Sphere"
+        );
     }
 
     private float timer;
@@ -16,10 +23,11 @@ public class Example : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if(timer > 0.5f)
+        if(timer > 0)
         {
             //Spawn next object to a random position
-            //pool.spawnAt(randomPos()); 
+            GameObject sphere = pool.spawnAt(randomPos());
+            sphere.GetComponent<Rigidbody>().velocity = Vector3.zero;
 
             //Spawn object to a random position by giving its index
             //pool.spawnAt(randomPos(), index : 5);

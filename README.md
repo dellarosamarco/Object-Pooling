@@ -1,4 +1,5 @@
 # 3D Object Pooling 
+This library allows you to generate N objects while still maintaining high performance.
 
 ## Create a simple pool
 ```c#
@@ -29,3 +30,15 @@ private void Start()
     );
 }
 ```
+
+## Work this pools
+```c#
+public Pool pool;
+
+public void test(){
+    
+}
+
+```
+
+

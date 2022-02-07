@@ -58,7 +58,6 @@ private void Start()
         {
             //Spawn next object to a random position
             GameObject sphere = pool.spawnAt(randomPos());
-            sphere.GetComponent<Rigidbody>().velocity = Vector3.zero;
 
             //Spawn object to a random position by giving its index
             //pool.spawnAt(randomPos(), index : 5);

@@ -56,13 +56,13 @@ private void Start()
 
         if(timer > 1f)
         {
-            //Spawn next object to a random position
+            //Spawn next pooled object to a random position
             GameObject sphere = pool.spawnAt(randomPos());
 
-            //Spawn object to a random position by giving its index
+            //Spawn pooled object to a random position by giving its index
             //pool.spawnAt(randomPos(), index : 5);
 
-            //Spawn a certain object to a random position
+            //Spawn a certain pooled object to a random position
             //pool.spawnAt(randomPos(), pool.pool[5]);
 
             //Increase pool size

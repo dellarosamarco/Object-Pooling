@@ -36,7 +36,7 @@ public class Example_2 : MonoBehaviour
         if (timer > 0)
         {
             //Spawn next object to a random position
-            for (int i = 0; i < pools.Count; i++)
+            for (int i= 0; i < pools.Count; i++)
             {
                 GameObject sphere = pools[i].spawnAt(Vector3.zero);
                 sphere.GetComponent<Rigidbody>().velocity = Vector3.zero;

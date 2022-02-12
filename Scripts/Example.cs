@@ -11,7 +11,7 @@ public class Example : MonoBehaviour
 
     private void Start()
     {
-        pooledObjectsText.text = "Pooled objects : " + poolSize.ToString();
+        pooledObjectsText.text = "Pooled objects : "+poolSize.ToString();
 
         pool = new Pool(
             mainObject : sphere, 

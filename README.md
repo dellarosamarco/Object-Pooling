@@ -1,7 +1,7 @@
 # 3D Object Pooling 
 This library allows you to generate N objects while still maintaining high performance.
 
-## Create a simple pool
+## Create a pool
 ```c#
 public Pool pool;
 public GameObject sphere;
@@ -83,5 +83,17 @@ private void Start()
     }
 
 ```
+
+## Others : 
+
+- nextObject(int step=1) => GameObject
+- previousObject(int step=1) => GameObject
+- disableAll()
+- disableAt(int index)
+- disable(GameObject obj)
+- enableAll()
+- enableAt(int index)
+- enable(GameObject obj)
+
 
 

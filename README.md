@@ -84,7 +84,7 @@ private void Start()
 
 ```
 
-## Others : 
+## Others functionalities : 
 
 - nextObject(int step=1) => GameObject
 - previousObject(int step=1) => GameObject

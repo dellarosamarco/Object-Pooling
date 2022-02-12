@@ -1,26 +1,31 @@
+using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class Example : MonoBehaviour
+public class Example_2 : MonoBehaviour
 {
     public GameObject sphere;
     public Transform objectsContainer;
-    public Pool pool;
+    public List<Pool> pools = new List<Pool>();
+    public int totalPools;
     public TextMeshProUGUI pooledObjectsText;
     public int poolSize;
 
     private void Start()
     {
-        pooledObjectsText.text = "Pooled objects : " + poolSize.ToString();
+        pooledObjectsText.text = "Pooled objects : " + (totalPools * poolSize).ToString();
 
-        pool = new Pool(
-            mainObject : sphere, 
-            poolSize : poolSize, 
-            initialState : false, 
-            parent : objectsContainer,
-            startPosition : randomPos(),
-            pooledObjectName : "Sphere"
-        );
+        for (int i=0; i < totalPools; i++)
+        {
+            pools.Add(new Pool(
+                mainObject: sphere,
+                poolSize: poolSize,
+                initialState: false,
+                parent: objectsContainer,
+                startPosition: randomPos(),
+                pooledObjectName: "Sphere"
+            ));
+        }
     }
 
     private float timer;
@@ -28,12 +33,15 @@ public class Example : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if(timer > 0)
+        if (timer > 0)
         {
             //Spawn next object to a random position
-            GameObject sphere = pool.spawnAt(Vector3.zero);
-            sphere.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            sphere.GetComponent<Rigidbody>().velocity = randomVelocity();
+            for (int i = 0; i < pools.Count; i++)
+            {
+                GameObject sphere = pools[i].spawnAt(Vector3.zero);
+                sphere.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                sphere.GetComponent<Rigidbody>().velocity = randomVelocity();
+            }
 
             //Spawn object to a random position by giving its index
             //pool.spawnAt(randomPos(), index : 5);

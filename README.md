@@ -1,5 +1,4 @@
 # 3D Object Pooling System + GPU instancing
-This library allows you to generate N objects while still maintaining high performance.
 
 ## Create a pool
 ```c#
